@@ -1,20 +1,27 @@
 package br.com.alura.forum.modelo;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Topico {
 
-
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String titulo;
 	private String mensagem;
 	private LocalDateTime dataCriacao = LocalDateTime.now();
+	@Enumerated(EnumType.STRING) //salva a constante no banco de dados, exemplo "NAO_RESPONDIDO"
 	private StatusTopico status = StatusTopico.NAO_RESPONDIDO;
+	@ManyToOne
 	private Usuario autor;
+	@ManyToOne
 	private Curso curso;
+	@OneToMany(mappedBy = "topico")
+	//Para não achar que é nova mapeamento utilizar mappedBy pq na classe "Respostas" tbm estara mapeado para o topico
 	private List<Resposta> respostas = new ArrayList<>();
 
 	public Topico(String titulo, String mensagem, Curso curso) {
