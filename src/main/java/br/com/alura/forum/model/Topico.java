@@ -1,4 +1,4 @@
-package br.com.alura.forum.modelo;
+package br.com.alura.forum.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -23,6 +23,9 @@ public class Topico {
 	@OneToMany(mappedBy = "topico")
 	//Para não achar que é nova mapeamento utilizar mappedBy pq na classe "Respostas" tbm estara mapeado para o topico
 	private List<Resposta> respostas = new ArrayList<>();
+
+	public Topico() {
+	}
 
 	public Topico(String titulo, String mensagem, Curso curso) {
 		this.titulo = titulo;
