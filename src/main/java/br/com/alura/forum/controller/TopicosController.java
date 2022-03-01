@@ -19,6 +19,8 @@ public class TopicosController {
 
     @Autowired
     private TopicoRepository topicoRepository;
+
+    @Autowired
     private CursoRepository cursoRepository;
 
     //@RequestMapping(value = "/topicos", method = RequestMethod.GET)
