@@ -8,6 +8,7 @@ import br.com.alura.forum.model.Topico;
 import br.com.alura.forum.repository.CursoRepository;
 import br.com.alura.forum.repository.TopicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -39,18 +40,19 @@ public class TopicosController {
         return TopicoDto.converter(topicos);
     }
 
+    @GetMapping(value = "/{id}")
+    public DetalheDoTopicoDto detalhar(@PathVariable Long id){
+        Topico topico = topicoRepository.getOne(id);
+        return new DetalheDoTopicoDto(topico);
+    }
+
     @PostMapping
+    @Transactional
     public ResponseEntity<TopicoDto> cadastrar(@RequestBody @Valid TopicoForm form, UriComponentsBuilder uriBuilder){
         Topico topico = form.converter(cursoRepository);
         topicoRepository.save(topico);
         URI uri = uriBuilder.path("/topicos/{id}").buildAndExpand(topico.getId()).toUri();
         return ResponseEntity.created(uri).body(new TopicoDto(topico));
-    }
-
-    @GetMapping(value = "/{id}")
-    public DetalheDoTopicoDto detalhar(@PathVariable Long id){
-        Topico topico = topicoRepository.getOne(id);
-        return new DetalheDoTopicoDto(topico);
     }
 
     @PutMapping("/{id}")
@@ -60,5 +62,12 @@ public class TopicosController {
         //Ao final da transação JPA ja detectado que houve alteraçao nas propriedades e ela ja atualiza o banco de dados
 
         return ResponseEntity.ok(new TopicoDto(topico));
+    }
+
+    @DeleteMapping({"/{id}"})
+    @Transactional
+    public ResponseEntity<?> delete(@PathVariable Long id){
+        topicoRepository.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 }
