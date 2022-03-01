@@ -4,11 +4,18 @@ import br.com.alura.forum.model.Curso;
 import br.com.alura.forum.model.Topico;
 import br.com.alura.forum.repository.CursoRepository;
 import br.com.alura.forum.repository.TopicoRepository;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotBlank;
 
 public class TopicoForm {
 
+    @NotBlank
+    @Length(min = 5)
     private String titulo;
+    @NotBlank
     private String mensagem;
+    @NotBlank
     private String nomeCurso;
 
     public String getTitulo() {
