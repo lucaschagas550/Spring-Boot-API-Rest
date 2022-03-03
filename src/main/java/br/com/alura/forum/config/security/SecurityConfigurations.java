@@ -17,7 +17,10 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers(HttpMethod.GET,"/topicos").permitAll()
-                .antMatchers(HttpMethod.GET,"/topicos/*").permitAll();
+                .antMatchers(HttpMethod.GET,"/topicos/*").permitAll()
+                .anyRequest().authenticated()  // qualquer outro request precisa esta autenticado
+                .and().formLogin();
+
     }
 
     //Configuração de autenticação
