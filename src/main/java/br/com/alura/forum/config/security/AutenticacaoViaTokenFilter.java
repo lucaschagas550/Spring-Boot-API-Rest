@@ -1,5 +1,6 @@
 package br.com.alura.forum.config.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -8,13 +9,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
 public class AutenticacaoViaTokenFilter extends OncePerRequestFilter {
+
+    //Essa classe nao pode receber injecao de dependencia por atributo entao injeta por meio do construtor
+    private TokenService tokenService;
+
+    public AutenticacaoViaTokenFilter(TokenService tokenService) {
+        this.tokenService = tokenService;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = recuperarToken(request);
 
         System.out.println("TokenFilter: " + token);
+        boolean valido = tokenService.isTokenValido(token);
+
+        System.out.println(valido);
+
+
         filterChain.doFilter(request,response);
     }
 
