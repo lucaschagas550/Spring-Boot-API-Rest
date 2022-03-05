@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 
@@ -33,8 +34,12 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers(HttpMethod.GET,"/topicos").permitAll()
                 .antMatchers(HttpMethod.GET,"/topicos/*").permitAll()
+                .antMatchers(HttpMethod.POST,"/auth").permitAll()
                 .anyRequest().authenticated()  // qualquer outro request precisa esta autenticado
-                .and().formLogin();
+                .and().csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+                //.and().formLogin(); form login
 
     }
 
