@@ -48,6 +48,13 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 
+		<!-- Monitoramento envio de informação para aplicação web-->
+		<dependency>
+			<groupId>de.codecentric</groupId>
+			<artifactId>spring-boot-admin-starter-client</artifactId>
+			<version>2.3.1</version>
+		</dependency>
+
 		<!-- Valida as propriedades das classes em java a partir das anotações que lá estão -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
