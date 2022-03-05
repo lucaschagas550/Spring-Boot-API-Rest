@@ -1,5 +1,6 @@
 package br.com.alura.forum.config.security;
 
+import br.com.alura.forum.repository.UsuarioRepository;
 import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -27,6 +28,8 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
     private AutenticacaoService autenticacaoService;
     @Autowired
     private TokenService tokenService;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     @Override
     @Bean
@@ -49,10 +52,8 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()  // qualquer outro request precisa esta autenticado
                 .and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService), UsernamePasswordAuthenticationFilter.class); //Adicionando o filtro
-
+                .and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository), UsernamePasswordAuthenticationFilter.class); //Adicionando o filtro
                 //.and().formLogin(); form login
-
     }
 
     //Configuração de recursos estaticos - js, css, imagens, etc..
