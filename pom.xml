@@ -42,6 +42,12 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
+		<!-- Monitoramento da API, verifica se esta online etc-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
 		<!-- Valida as propriedades das classes em java a partir das anotações que lá estão -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
