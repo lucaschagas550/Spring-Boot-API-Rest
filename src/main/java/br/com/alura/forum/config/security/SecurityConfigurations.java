@@ -23,7 +23,7 @@ import java.sql.SQLOutput;
 
 @EnableWebSecurity
 @Configuration
-@Profile("prod")//ambiente de desenvolvimento
+//@Profile(value = {"prod", "test"})//ambiente de desenvolvimento
 public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 
     @Autowired

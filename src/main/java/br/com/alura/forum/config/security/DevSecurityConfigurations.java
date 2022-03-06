@@ -1,3 +1,4 @@
+/*
 package br.com.alura.forum.config.security;
 
 import br.com.alura.forum.repository.UsuarioRepository;
@@ -58,9 +59,12 @@ public class DevSecurityConfigurations extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**");
     }
 
-  /*  public static void main(String[] args){
+  */
+/*  public static void main(String[] args){
         System.out.println(new Pbkdf2PasswordEncoder().encode("123"));
-    }*/
+    }*//*
+
 
 
 }
+*/
