@@ -18,6 +18,7 @@ public class Usuario implements UserDetails {
 	private String email;
 	private String senha;
 
+	//Tabela usuario_perfis muitos usuarios para muitos perfis n => n
 	@ManyToMany(fetch = FetchType.EAGER)
 	private List<Perfil> perfis = new ArrayList<Perfil>();
 
